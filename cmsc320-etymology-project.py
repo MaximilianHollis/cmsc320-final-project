@@ -65,7 +65,12 @@ df = engl.set_index('term').join(freqs).sort_values('count', ascending = False).
 df['freq'] = df['count'] / freqs['count'].sum()
 df
 
-"""# Hypothesis 1"""
+"""# Hypothesis 1
+
+H0: There is no difference between the distribution of what languages the top 2000 loanwords have been borrowed from, the distribution of languages the top 2000-4000 loanwords have been borrowed from, and the distribution of languages loanwords other than the top 4000 have been borrowed from.
+
+HA: There is a difference between the distribution of what languages the top 2000 loanwords have been borrowed from, the distribution of languages the top 2000-4000 loanwords have been borrowed from, and the distribution of languages loanwords other than the top 4000 have been borrowed from.
+"""
 
 df = pd.read_csv('etymology.csv')
 borrowed_df = df[df['reltype'] == 'borrowed_from']
@@ -137,7 +142,12 @@ combined['Group 3']*=(2000/4138)
 combined = combined.sort_values(by='Group 1')
 f_oneway(combined['Group 1'], combined['Group 2'], combined['Group 3'])
 
-"""# Hypothesis 2"""
+"""# Hypothesis 2
+
+H0: There is no difference in the amount of language relations for more frequently used English words.
+
+Ha: More frequently used English words have a significantly different (more or less) amount of language relations.
+"""
 
 #Hypothesis #2
 import matplotlib.pyplot as plt
@@ -244,6 +254,11 @@ It is likely that there is a clear positive relationship with certain commonly u
 Overall, the testing suggests a particularly significantly significant difference, the relationship is not strong, thus other factors likely are coming into play.
 
 # Hypothesis 3#
+
+H0: The distribution of relationship types in the dataset is uniform
+
+HA: The distribution of relationship types in the dataset is not uniform.
+Test: chi-square test for independence
 """
 
 from scipy.stats import chi2_contingency
@@ -279,3 +294,8 @@ plt.xticks(rotation=80)
 plt.title("Distribution of relationship types")
 plt.xlabel("Relationship type")
 plt.ylabel("Occurences")
+
+"""**Conclusion for test 3**
+
+We reject the null hypothesis that the distribution of relationship types is uniform. There is extremely strong statistical evidence to support the alternative hypothesis that the relationship types are not equally distributed in the dataset.
+"""
